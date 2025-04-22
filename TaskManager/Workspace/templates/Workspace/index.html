@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Task Manager{% endblock %}
+
+{% block body %}
+<div class="p-6 max-w-6xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold">All Tasks</h1>
+        <a href="{% url 'add_task' %}" 
+           class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition">
+            + Add Task
+        </a>
+    </div>
+
+    <div class="overflow-x-auto rounded-lg shadow">
+        <table class="w-full border-collapse bg-white">
+            <thead class="bg-gray-100 text-gray-600 text-sm uppercase">
+                <tr>
+                    <th class="px-6 py-3 text-left">Sr No.</th>
+                    <th class="px-6 py-3 text-left">Task Name</th>
+                    <th class="px-6 py-3 text-left">Description</th>
+                    <th class="px-6 py-3 text-left">Due Date</th>
+                    <th class="px-6 py-3 text-left">Task Status</th>
+                    <th class="px-6 py-3 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in all_tasks %}
+                <tr class="hover:bg-gray-50 transition">
+                    <td class="px-6 py-4 border-b">{{ forloop.counter }}</td>
+                    <td class="px-6 py-4 border-b">{{ task.task_name }}</td>
+                    <td class="px-6 py-4 border-b">{{ task.description }}</td>
+                    <td class="px-6 py-4 border-b">{{ task.due_date }}</td>
+                    <td>{{task.completion}}</td>
+                    <td class="px-6 py-4 border-b space-x-2">
+                        <a href="/update/{{ task.id }}" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">Update</a>
+                        <a href="/delete/{{ task.id }}" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Delete</a>
+                    </td>
+
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center py-6 text-gray-500">No tasks available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

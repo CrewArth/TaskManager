@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+<h1 class="text-3xl font-bold text-center my-6" style="color: white;">Update Your Task</h1>
+
+{% block body %}
+<div class="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6">
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Task Name</label>
+            <input type="text" name="taskname" required value="{{task.task_name}}"
+                class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200">
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Task Description</label>
+            <textarea name="taskdes" required rows="4"
+                class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200" >
+                {{task.description}}
+            </textarea>
+        </div>
+        <div>
+            <label>Task Completed? </label>
+            <input type="checkbox" name="completion">
+        </div>
+
+        <button type="submit"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition">
+            Update Task
+        </button>
+        
+    </form>
+</div>
+{% endblock %}
